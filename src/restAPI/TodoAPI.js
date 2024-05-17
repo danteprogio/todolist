@@ -18,10 +18,24 @@ export const deleteTask = async (deleteTask) => {
     return data
 };
 
-export const updateTask = async (updateTask) => {
-    let {data} = await axios.patch(`/api/todo/${updateTask}`,{
-        status: "complete"
-    })
+export const updateTask = async (updateTask,type,newTask = 'Sample') => {
+   
+    const checkingOfType =()=>{
+        console.log(type)
+        let typeOfUpdate = '';
+        type === 'Status' ?
+
+            typeOfUpdate = {
+                status: "complete"
+            }
+        :
+            typeOfUpdate = {
+                taskname: newTask
+            }
+        return typeOfUpdate
+    }
+
+    let {data} = await axios.patch(`/api/todo/${updateTask}`,checkingOfType())
     return data
 };
 
